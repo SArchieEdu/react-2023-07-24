@@ -1,9 +1,7 @@
-export const Layout = ({ children }) => {
-  return (
-    <div>
-      <header>header</header>
-      <main>{children}</main>
-      <footer>footer</footer>
-    </div>
-  );
-};
+export const Layout = ({ children }) => (
+  <div>
+    <header>header</header>
+    <main>{children}</main>
+    <footer>footer</footer>
+  </div>
+);
