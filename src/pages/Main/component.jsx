@@ -1,25 +1,26 @@
 import { Layout } from "../../components/Layout/component";
 import { restaurants } from "../../constants/constants";
-import { Button } from "../../components/Button/component";
+import { Restaurant } from "../../components/Restaurant/component";
+import { Tabs } from '../../components/Tabs/component'
 import { useState } from "react";
 
 export const MainPage = () => {
   const [activeRestaurantIndex, setActiveRestaurantIndex] = useState(0);
+  const selectedRestaurantName = restaurants[activeRestaurantIndex].name
+  const selectedRestaurantMenu = restaurants[activeRestaurantIndex].menu
+  const selectedRestaurantReviews = restaurants[activeRestaurantIndex].reviews
 
   return (
     <Layout>
-      <div>
-        {restaurants.map((restaurant, index) => (
-          <Button
-            key={restaurant.id}
-            onClick={() => setActiveRestaurantIndex(index)}
-          >
-            {restaurant.name}
-          </Button>
-        ))}
-      </div>
-      <div>{restaurants[activeRestaurantIndex].name}</div>
-      {/* <div><Restaurant/></div> */}
+      <Tabs
+        restaurants={restaurants}
+        onTabSelect={setActiveRestaurantIndex} 
+      />
+      <Restaurant
+        selectedRestaurantName={selectedRestaurantName}
+        selectedRestaurantMenu={selectedRestaurantMenu}
+        selectedRestaurantReviews={selectedRestaurantReviews}
+      />
     </Layout>
   );
 };
