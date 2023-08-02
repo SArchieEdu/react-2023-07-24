@@ -1,26 +1,17 @@
-import { Layout } from '../../components/Layout/component';
-import { Button } from '../../components/Button/component';
-import { Restaurant } from '../../components/Restaurant/component';
-import { restaurants } from '../../constants/constants';
-import { useState } from "react";
+import { Button } from '../Button/component';
 
-export const MainPage = () => {
-  const [activeRestaurantIndex, setActiveRestaurantIndex] = useState(0);
+export const Tabs = ({ restaurants, onTabSelect }) => {
 
-  return (
-    <Layout>
-      <div>
-        {restaurants.map((restaurant, index) => (
-          <Button
-            key={restaurant.id}
-            onClick={() => setActiveRestaurantIndex(index)}
-          >
-            {restaurant.name}
-          </Button>
-        ))}
-      </div>
-      {/*<div>{restaurants[activeRestaurantIndex].name}</div>*/}
-       <div><Restaurant activeRestaurant={restaurants[activeRestaurantIndex]} /></div>
-    </Layout>
-  );
+    return (
+        <div>
+            {restaurants && restaurants.map((restaurant, index) => (
+                <Button
+                    key={restaurant.id}
+                    onClick={() => onTabSelect(index)}
+                >
+                    {restaurant.name}
+                </Button>
+            ))}
+        </div>
+    );
 };

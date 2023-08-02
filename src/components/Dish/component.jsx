@@ -1,3 +1,3 @@
-export const MenuItem = ({ title }) => {
+export const Dish = ({ title }) => {
   return <li>{title}</li>;
 };
