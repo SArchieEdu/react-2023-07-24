@@ -1,3 +1,13 @@
 export const Button = ({ children, onClick }) => {
-  return <button onClick={onClick}>{children}</button>;
+  return (
+    <button onClick={
+      (e) => { 
+        e.preventDefault(); 
+        onClick()
+      }
+    }
+    >
+      {children}
+    </button>
+  ) 
 };

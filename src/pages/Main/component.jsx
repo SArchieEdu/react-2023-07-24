@@ -1,6 +1,8 @@
 import { Layout } from "../../components/Layout/component";
 import { restaurants } from "../../constants/constants";
-import { Button } from "../../components/Button/component";
+// import { Button } from "../../components/Button/component";
+import { Tabs } from "../../components/Tubs/component";
+import { Restaurant } from "../../components/Restaurant/component";
 import { useState } from "react";
 
 export const MainPage = () => {
@@ -8,18 +10,8 @@ export const MainPage = () => {
 
   return (
     <Layout>
-      <div>
-        {restaurants.map((restaurant, index) => (
-          <Button
-            key={restaurant.id}
-            onClick={() => setActiveRestaurantIndex(index)}
-          >
-            {restaurant.name}
-          </Button>
-        ))}
-      </div>
-      <div>{restaurants[activeRestaurantIndex].name}</div>
-      {/* <div><Restaurant/></div> */}
+      <Tabs restaurants={restaurants} onTabSelect={setActiveRestaurantIndex}/>
+      <Restaurant activeRestaurant={restaurants[activeRestaurantIndex]} />  
     </Layout>
   );
 };
