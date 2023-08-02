@@ -1,0 +1,13 @@
+.dish {
+  padding-right: 10px;
+}
+.dish h3 {
+  margin: 0;
+  padding: 0;
+}
+
+.dish ul,
+li {
+  margin: 0;
+  padding: 0;
+}

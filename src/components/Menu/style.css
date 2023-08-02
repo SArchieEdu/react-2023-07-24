@@ -1,0 +1,7 @@
+.menu {
+  border: 1px solid red;
+  border-radius: 5px;
+  display: flex;
+  padding: 20px;
+  margin-bottom: 20px;
+}
