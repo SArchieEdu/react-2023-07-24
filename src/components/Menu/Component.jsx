@@ -1,8 +1,8 @@
 import { Dish } from "../Dish/Component"
 
-export const Menu = ({restaurantsList}) => {
+export const Menu = ({dishes}) => {
 {
-  restaurantsList.map((dish, index) => {
+  return dishes.map((dish, index) => {
     return (
       <Dish dishEl={dish} key={index}/>
     )
