@@ -7,10 +7,12 @@ export const Dish = ({ dish }) => {
   const toggleDish = (type) => {
     if(type === 'add') {
       setCount(count => count + 1);
+      return;
     } 
 
     if(type === 'remove' && count > 0) {
       setCount(count => count - 1);
+      return;
     }
   }
 
