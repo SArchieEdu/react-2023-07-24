@@ -10,9 +10,12 @@ export const Dish = ({ dish }) => {
   return <div>
     <h4>{dish.name}</h4>
     <div>
-      Количество: <Counter quantity={quantity} updateQuantity={updateQuantity}/>
+      Quantity: <Counter quantity={quantity} updateQuantity={updateQuantity}/>
       <br/>
-      Цена: <b>{dish.price * quantity}$</b>
+      Ingredients: {dish.ingredients.map((item, i) => (<span key={i}>{`${item}${dish.ingredients.length - 1 !== i ? ', ' : ''}`}</span>))
+    }
+      <br/>
+      Price: <b>{dish.price * quantity}$</b>
     </div>
   </div>;
 };
