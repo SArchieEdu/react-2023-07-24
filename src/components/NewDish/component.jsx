@@ -15,10 +15,10 @@ const reducer = (state, {type, payload} = {}) => {
         case SET_NAME: {
             return {...state, name: payload };
         }
-        case 'setPrice': {
+        case SET_PRICE: {
             return {...state, price: payload };
         }
-        case 'setIngredients': {
+        case SET_INGREDIENTS: {
             const newIngredients = payload.split(',').map((item) => item.trim());
 
             return {...state, ingredients: newIngredients };
