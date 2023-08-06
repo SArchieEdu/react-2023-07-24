@@ -6,7 +6,7 @@ const SET_PRICE = 'setPrice';
 const SET_INGREDIENTS = 'setIngredients';
 const DEFAULT_DISH = {
     name: '',
-    price: '',
+    price: 0,
     ingredients: [],
 }
 
