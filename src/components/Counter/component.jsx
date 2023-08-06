@@ -3,6 +3,7 @@ export const Counter = ({ quantity, updateQuantity }) => {
     const inputChange = (event) => {
         if (!event?.target.value.length) {
             updateQuantity(0);
+            return
         }
 
         const value = parseInt(event?.target.value, 10);
