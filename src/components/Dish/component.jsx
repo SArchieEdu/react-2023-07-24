@@ -1,16 +1,18 @@
 import { useState } from 'react';
 
+const ADD = 'add';
+const REMOVE = 'remove';
 
 export const Dish = ({ dish }) => {
   const [count, setCount] = useState(0);
 
   const toggleDish = (type) => {
-    if(type === 'add') {
+    if(type === ADD) {
       setCount(count => count + 1);
       return;
     } 
 
-    if(type === 'remove' && count > 0) {
+    if(type === REMOVE && count > 0) {
       setCount(count => count - 1);
       return;
     }
@@ -19,9 +21,9 @@ export const Dish = ({ dish }) => {
   return <div>
     {dish.name}
     <div>
-      <button onClick={() => toggleDish('remove')}>-</button>
+      <button onClick={() => toggleDish(REMOVE)}>-</button>
       <span>{count}</span>
-      <button onClick={() => toggleDish('add')}>+</button>
+      <button onClick={() => toggleDish(ADD)}>+</button>
     </div>
     price: {Number(dish.price) *  count}
     </div>;
