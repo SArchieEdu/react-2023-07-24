@@ -1,19 +1,13 @@
-const Dish = ({ item }) => {
-  const itemOptions = Object.keys(item);
+const Dish = ({ dish }) => {
   return (
     <p>
       <h3>Dish:</h3>
-      {itemOptions.map(
-        (option) =>
-          option !== "id" && (
-            <p key={option}>
-              {option}:{" "}
-              {item[option] instanceof Array
-                ? item[option].join(", ")
-                : item[option]}
-            </p>
-          )
-      )}
+      <p>Name:</p>
+      <p>{dish.name}</p>
+      <p>Price:</p>
+      <p>{dish.price}</p>
+      <p>ingredients:</p>
+      <p>{dish.ingredients.join(', ')}</p>
     </p>
   );
 };

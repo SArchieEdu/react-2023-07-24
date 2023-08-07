@@ -6,14 +6,15 @@ import { useState } from "react";
 
 export const MainPage = () => {
   const [activeRestaurantIndex, setActiveRestaurantIndex] = useState(0);
+  console.log(restaurants)
 
   return (
     <Layout>
       <div>
-        <Tabs restList={restaurants} onTablSelect={setActiveRestaurantIndex} />
+        <Tabs restaurants={restaurants} onTablSelect={setActiveRestaurantIndex} />
       </div>
       <div>
-        <Restaurant rest={restaurants[activeRestaurantIndex]} />
+        <Restaurant restaurant={restaurants[activeRestaurantIndex]} />
       </div>
     </Layout>
   );

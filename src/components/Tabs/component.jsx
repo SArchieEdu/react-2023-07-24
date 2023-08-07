@@ -1,9 +1,9 @@
 import { Button } from "../../components/Button/component";
 
-const Tabs = ({ restList, onTablSelect }) => {
+const Tabs = ({ restaurants, onTablSelect }) => {
   return (
     <div>
-      {restList.map((restaurant, index) => (
+      {restaurants.map((restaurant, index) => (
         <Button
           key={restaurant.id}
           onClick={() => onTablSelect(index)}

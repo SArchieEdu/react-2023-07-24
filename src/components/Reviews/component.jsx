@@ -4,7 +4,7 @@ const Reviews = ({ reviews }) => {
     <div>
       <h2>Reviews:</h2>
       {reviews.map((review) => (
-        <Review key={review.id} item={review} />
+        <Review key={review.id} review={review} />
       ))}
     </div>
   );

@@ -1,19 +1,13 @@
-const Review = ({ item }) => {
-  const itemOptions = Object.keys(item);
+const Review = ({ review }) => {
   return (
     <p>
       <h3>Review:</h3>
-      {itemOptions.map(
-        (option) =>
-          option !== "id" && (
-            <p key={option}>
-              {option}:{" "}
-              {item[option] instanceof Array
-                ? item[option].join(", ")
-                : item[option]}
-            </p>
-          )
-      )}
+      <p>User:</p>
+      <p>{review.user}</p>
+      <p>Text:</p>
+      <p>{review.text}</p>
+      <p>Rating:</p>
+      <p>{review.rating}</p>
     </p>
   );
 };

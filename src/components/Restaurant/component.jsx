@@ -1,12 +1,12 @@
 import Menu from "../../components/Menu/component";
 import Reviews from "../../components/Reviews/component";
 
-const Restaurant = ({ rest }) => {
+const Restaurant = ({ restaurant }) => {
   return (
     <div>
-      <h1>{rest.name}</h1>
-      <Menu menu={rest.menu} />
-      <Reviews reviews={rest.reviews} />
+      <h1>{restaurant.name}</h1>
+      <Menu menu={restaurant.menu} />
+      <Reviews reviews={restaurant.reviews} />
     </div>
   );
 };
