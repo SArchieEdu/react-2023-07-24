@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useReducer } from "react"
 
 const DEFAULT_VALUE = {
   name: '',
@@ -6,8 +6,23 @@ const DEFAULT_VALUE = {
   ingredients: [],
 }
 
+const reducer = (state, {type, payload} = {}) => {
+  switch (type) {
+    case 'setName':
+      return { ...state, name: payload };
+    case 'setPrice':
+      return { ...state, price: payload };
+    case 'setIngredients':
+      return { ...state, ingredients: payload ? payload.split(',') : []};
+    default:
+      return state;
+  }
+
+}
+
 export const NewDish = () => {
-  const [form, setForm] = useState(DEFAULT_VALUE);
+
+  const [form, dispatch] = useReducer(reducer, DEFAULT_VALUE);
 
   return (
     <div>
@@ -15,24 +30,21 @@ export const NewDish = () => {
         <label>Name:</label>
         <input
           value={form.name}
-          onChange={(event) => setForm({ ...form, name: event.target.value })}
+          onChange={(event) => dispatch({type: 'setName', payload: event.target.value})}
         />
       </div>
       <div>
         <label>Price:</label>
         <input
           value={form.price}
-          onChange={(event) => setForm({ ...form, price: event.target.value })}
+          onChange={(event) => dispatch({type: 'setPrice', payload: event.target.value})}
         />
       </div>
       <div>
         <label>Ingredients:</label>
         <input
           value={form.ingredients.join(',')}
-          onChange={(event) => setForm({ 
-            ...form, 
-            ingredients: event.target.value ? event.target.value.split(',') : []
-          })}
+          onChange={(event) => dispatch({type: 'setIngredients', payload: event.target.value})}
         />
       </div>
     </div>
