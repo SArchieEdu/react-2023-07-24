@@ -13,23 +13,21 @@ const reducer = (state, { type, payload } = {}) => {
       return { ...state, dishName: payload };
     case "setDishPrice":
       return { ...state, dishPrice: payload };
-    case "setDishIngredients":
-      return { ...state, dishIngredients: payload };
-
+    case "processDishIngredients": {
+      const ingredients = payload
+        .split(",")
+        .map(ingredient => ingredient.trim());
+      return { ...state, dishIngredients: ingredients };
+    }
     default:
       return state;
   }
 };
 
 export const NewDish = () => {
-  const [form, setDishName] = useReducer(reducer, DEFAULT_VALUES);
+  const [form, setDishValue] = useReducer(reducer, DEFAULT_VALUES);
 
-  const onSetDishName = value => {
-    const ingredients = value
-      .split(",")
-      .map(ingredient => ingredient.trim());
-    setDishName({ type: "setDishIngredients", payload: ingredients });
-  };
+  console.log(form);
 
   return (
     <div className="new-dish">
@@ -39,7 +37,7 @@ export const NewDish = () => {
           type="text"
           value={form.dishName}
           onChange={e =>
-            setDishName({ type: "setDishName", payload: e.target.value })
+            setDishValue({ type: "setDishName", payload: e.target.value })
           }
         />
       </div>
@@ -49,7 +47,7 @@ export const NewDish = () => {
           type="number"
           value={form.dishPrice}
           onChange={e =>
-            setDishName({ type: "setDishPrice", payload: e.target.value })
+            setDishValue({ type: "setDishPrice", payload: e.target.value })
           }
         />
       </div>
@@ -57,8 +55,14 @@ export const NewDish = () => {
         <label>Dish Ingredients</label>
         <input
           type="text"
-          value={form.dishIngredients}
-          onChange={e => onSetDishName(e.target.value)}
+          value={form.dishIngredients.join(", ")}
+          onChange={e =>
+            setDishValue({
+              type: "processDishIngredients",
+              payload: e.target.value
+            })
+          }
+          // onChange={e => onSetDishName(e.target.value)}
         />
       </div>
     </div>
