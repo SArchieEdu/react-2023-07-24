@@ -9,6 +9,7 @@ import { ThemeContext } from "../../contexts/themeContext";
 import { Provider } from "../../custome-redux/provider";
 import { store } from "../../store";
 import { Cart } from "../../components/Cart/component";
+import { AuthProvider } from "../../auth/index.js";
 
 const LOCAL_STORAGE_KEY = "activeRestaurantIndex";
 
@@ -25,19 +26,21 @@ export const MainPage = () => {
   return (
     <Provider store={store}>
       <ThemeContext.Provider value={theme}>
-        <Layout>
-          <Button
-            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-          >
-            SwitchTheme
-          </Button>
-          <Tabs
-            restaurants={restaurants}
-            onTabSelect={setActiveRestaurantIndex}
-          />
-          <Restaurant restaurant={restaurants[activeRestaurantIndex]} />
-          <Cart />
-        </Layout>
+        <AuthProvider>
+          <Layout>
+            <Button
+              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            >
+              SwitchTheme
+            </Button>
+            <Tabs
+              restaurants={restaurants}
+              onTabSelect={setActiveRestaurantIndex}
+            />
+            <Restaurant restaurant={restaurants[activeRestaurantIndex]} />
+            <Cart />
+          </Layout>
+        </AuthProvider>
       </ThemeContext.Provider>
     </Provider>
   );

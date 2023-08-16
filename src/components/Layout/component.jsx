@@ -1,7 +1,9 @@
+import { Header } from "../Header/component.jsx";
+
 export const Layout = ({ children }) => {
   return (
     <div>
-      <header>header</header>
+      <Header />
       <main>{children}</main>
       <footer>footer</footer>
     </div>
