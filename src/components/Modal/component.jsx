@@ -1,3 +1,5 @@
+import { createPortal } from "react-dom";
+
 export const Modal = ({ children }) => {
   const modalStyles = {
     background: "rgba(196, 196, 196, .5)",
@@ -19,10 +21,13 @@ export const Modal = ({ children }) => {
   }
 
   return (
-    <div style={modalStyles}>
-      <div style={modalWindowStyles}>
-        {children}
-      </div>
-    </div>
+    createPortal(
+      <div style={modalStyles}>
+        <div style={modalWindowStyles}>
+          {children}
+        </div>
+      </div>,
+      document.body,
+    )
   )
 }

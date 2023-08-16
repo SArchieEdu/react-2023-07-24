@@ -2,7 +2,6 @@ import { useAuth } from "../../auth/index.js";
 import { Button } from "../Button/component.jsx";
 import { useState } from "react";
 import { Modal } from "../Modal/component.jsx";
-import { createPortal } from "react-dom";
 import { AuthForm } from "../AuthForm/component.jsx";
 
 export const Header = () => {
@@ -24,12 +23,11 @@ export const Header = () => {
         <Button onClick={() => setIsAuthModalVisible(true)}>Login</Button>
       )}
 
-      {isAuthModalVisible && createPortal(
+      {isAuthModalVisible &&
         <Modal>
           <AuthForm onLoginClick={handleModalLoginClick} />
-        </Modal>,
-        document.body
-      )}
+        </Modal>
+      }
     </header>
   )
 }
