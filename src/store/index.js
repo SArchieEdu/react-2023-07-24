@@ -16,6 +16,13 @@ const rootReducer = (state = defaultState, action) => {
         [action.payload]: (state[action.payload] || 0) - 1
       };
 
+    case "setAuthName": {
+      return {
+        ...state,
+        username: action.payload
+      };
+    }
+
     default:
       return state;
   }
