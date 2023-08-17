@@ -1,25 +1,44 @@
 import { Layout } from "../../components/Layout/component";
 import { restaurants } from "../../constants/constants";
-import { Button } from "../../components/Button/component";
 import { useState } from "react";
+import { Restaurant } from "../../components/Restaurant/component";
+import { Tabs } from "../../components/Tabs/component";
+import { useEffect } from "react";
+import { Button } from "../../components/Button/component";
+import { ThemeContext } from "../../contexts/themeContext";
+import { Provider } from "../../custome-redux/provider";
+import { store } from "../../store";
+import { Cart } from "../../components/Cart/component";
+
+const LOCAL_STORAGE_KEY = "activeRestaurantIndex";
 
 export const MainPage = () => {
-  const [activeRestaurantIndex, setActiveRestaurantIndex] = useState(0);
+  const [theme, setTheme] = useState("light");
+  const [activeRestaurantIndex, setActiveRestaurantIndex] = useState(
+    () => localStorage.getItem(LOCAL_STORAGE_KEY) || 0
+  );
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, activeRestaurantIndex);
+  }, [activeRestaurantIndex]);
 
   return (
-    <Layout>
-      <div>
-        {restaurants.map((restaurant, index) => (
+    <Provider store={store}>
+      <ThemeContext.Provider value={theme}>
+        <Layout>
           <Button
-            key={restaurant.id}
-            onClick={() => setActiveRestaurantIndex(index)}
+            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
           >
-            {restaurant.name}
+            SwitchTheme
           </Button>
-        ))}
-      </div>
-      <div>{restaurants[activeRestaurantIndex].name}</div>
-      {/* <div><Restaurant/></div> */}
-    </Layout>
+          <Tabs
+            restaurants={restaurants}
+            onTabSelect={setActiveRestaurantIndex}
+          />
+          <Restaurant restaurant={restaurants[activeRestaurantIndex]} />
+          <Cart />
+        </Layout>
+      </ThemeContext.Provider>
+    </Provider>
   );
 };
