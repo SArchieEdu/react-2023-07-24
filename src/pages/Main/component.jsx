@@ -27,8 +27,7 @@ export const MainPage = () => {
       <ThemeContext.Provider value={theme}>
         <Layout>
           <Button
-            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-          >
+            onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
             SwitchTheme
           </Button>
           <Tabs

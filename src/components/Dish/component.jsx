@@ -2,13 +2,15 @@ import { Button } from "../Button/component";
 import { useDispatch, useSelector } from "../../custome-redux";
 
 export const Dish = ({ dish }) => {
-  const count = useSelector((state) => state[dish.name] || 0);
+  const count = useSelector(state => state[dish.name] || 0);
   const dispatch = useDispatch();
 
   const increment = () => {
     dispatch({ type: "increment", payload: dish.name });
   };
-  const decrement = () => {};
+  const decrement = () => {
+    dispatch({ type: "decrement", payload: dish.name });
+  };
 
   const { price: dishPrice, name } = dish || {};
 

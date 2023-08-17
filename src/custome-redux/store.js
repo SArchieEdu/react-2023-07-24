@@ -19,7 +19,7 @@ class Store {
   }
 
   sendChanges() {
-    [...this.subscribers.values()].forEach((callback) => {
+    [...this.subscribers.values()].forEach(callback => {
       callback(this.state);
     });
   }
@@ -33,7 +33,7 @@ class Store {
 export const createStore = (() => {
   let currentStore;
 
-  return (reducer) => {
+  return reducer => {
     if (!currentStore) {
       currentStore = new Store(reducer);
     }

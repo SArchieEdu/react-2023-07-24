@@ -1,0 +1,21 @@
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%);
+  background-color: rgb(177, 177, 177);
+  padding: 10px;
+  border-radius: 5px;
+  min-width: 300px;
+
+  &__header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+  }
+}
