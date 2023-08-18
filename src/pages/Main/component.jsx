@@ -9,13 +9,16 @@ import { ThemeContext } from "../../contexts/themeContext";
 import { Provider } from "../../custome-redux/provider";
 import { store } from "../../store";
 import { Cart } from "../../components/Cart/component";
+import { SessionProvider } from "../../contexts/sessionContext";
+import { LoginModal } from "../../components/LoginModal/component";
+import { LoginModalProvider } from "../../contexts/loginModalContext";
 
 const LOCAL_STORAGE_KEY = "activeRestaurantIndex";
 
 export const MainPage = () => {
   const [theme, setTheme] = useState("light");
   const [activeRestaurantIndex, setActiveRestaurantIndex] = useState(
-    () => localStorage.getItem(LOCAL_STORAGE_KEY) || 0
+    () => localStorage.getItem(LOCAL_STORAGE_KEY) || 0,
   );
 
   useEffect(() => {
@@ -25,19 +28,19 @@ export const MainPage = () => {
   return (
     <Provider store={store}>
       <ThemeContext.Provider value={theme}>
-        <Layout>
-          <Button
-            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-          >
-            SwitchTheme
-          </Button>
-          <Tabs
-            restaurants={restaurants}
-            onTabSelect={setActiveRestaurantIndex}
-          />
-          <Restaurant restaurant={restaurants[activeRestaurantIndex]} />
-          <Cart />
-        </Layout>
+        <SessionProvider>
+          <LoginModalProvider>
+            <Layout>
+              <Button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+                SwitchTheme
+              </Button>
+              <Tabs restaurants={restaurants} onTabSelect={setActiveRestaurantIndex} />
+              <Restaurant restaurant={restaurants[activeRestaurantIndex]} />
+              <Cart />
+            </Layout>
+            <LoginModal />
+          </LoginModalProvider>
+        </SessionProvider>
       </ThemeContext.Provider>
     </Provider>
   );
