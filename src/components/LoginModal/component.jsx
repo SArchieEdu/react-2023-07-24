@@ -3,6 +3,7 @@ import { Modal } from "../Modal/component";
 import { LoginModalContext } from "../../contexts/loginModalContext";
 import { useReducer } from "react";
 import { SessionContext } from "../../contexts/sessionContext";
+import { useDispatch } from "../../custome-redux";
 
 const DEFAULT_VALUE = {
   name: "",
@@ -28,6 +29,7 @@ const reducer = (state, { type, payload } = {}) => {
 export const LoginModal = () => {
   const { showModal, setShowModal } = useContext(LoginModalContext);
   const { setSession } = useContext(SessionContext);
+  const dispatchCustomeRedux = useDispatch();
 
   const [form, dispatch] = useReducer(reducer, DEFAULT_VALUE);
   const { name, surname } = form;
@@ -35,6 +37,7 @@ export const LoginModal = () => {
   const isDisabled = !name || !surname;
 
   const handleClick = () => {
+    dispatchCustomeRedux({ type: "setUser", payload: { name, surname }});
     setSession(true);
     setShowModal(false);
   };

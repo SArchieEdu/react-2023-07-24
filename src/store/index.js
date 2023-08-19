@@ -1,19 +1,35 @@
 import { createStore } from "../custome-redux";
 
-const defaultState = {};
+const defaultState = {
+  user: {},
+  dishes: {}
+};
 
 const rootReducer = (state = defaultState, action) => {  
   switch (action?.type) {
-    case "increment":
+    case "increment": {
+      const dishes = { ...state.dishes };
+      dishes[action.payload] = (dishes[action.payload] || 0) + 1;
+ 
       return {
         ...state,
-        [action.payload]: (state[action.payload] || 0) + 1,
+        dishes,
       };
+    }
     case "decrement": {
-        return {
-          ...state,
-          [action.payload]: (state[action.payload] || 0) - 1,
-        };
+      const dishes = { ...state.dishes };
+      dishes[action.payload] = (dishes[action.payload] || 0) - 1;
+ 
+      return {
+        ...state,
+        dishes,
+      };
+    }
+    case "setUser": {
+      return {
+        ...state,
+        'user': action.payload,
+      };
     }
     default:
       return state;
