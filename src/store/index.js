@@ -9,6 +9,21 @@ const rootReducer = (state = defaultState, action) => {
         ...state,
         [action.payload]: (state[action.payload] || 0) + 1,
       };
+    case "decrement":
+      return {
+        ...state,
+        [action.payload]: (state[action.payload] || 0) - 1,
+      };
+    case "login":
+      return {
+        ...state,
+        [action.payload]: state[action.payload] = true,
+      };
+    case "logout":
+      return {
+        ...state,
+        [action.payload]: state[action.payload] = false,
+      };
 
     default:
       return state;

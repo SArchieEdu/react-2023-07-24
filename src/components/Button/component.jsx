@@ -13,8 +13,6 @@ export const Button = ({ children, onClick, disabled }) => {
       ref={ref}
       onClick={() => {
         onClick();
-        clearInterval(ref.current);
-        ref.current = undefined;
       }}
       disabled={disabled}
     >
