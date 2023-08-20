@@ -1,18 +1,36 @@
-const DEFAULT_STATE = {};
+const DEFAULT_STATE = [];
 
-export const cartReducer = (state = DEFAULT_STATE, action) => {
-  switch (action?.type) {
+const addToCart = (cart, itemId) => {
+  const cartItem = cart.find((item) => item.id === itemId);
+  if (cartItem) {
+    cartItem.quantity += 1;
+  } else {
+    cart.push({
+      id: itemId,
+      quantity: 1,
+    })
+  }
+}
+
+const removeFromCart = (cart, itemId) => {
+  const cartItem = cart.find((item) => item.id === itemId);
+
+  if (cartItem && cartItem.quantity > 0) {
+    cartItem.quantity -= 1;
+  }
+}
+
+
+export const cartReducer = (state = DEFAULT_STATE, { type, payload }) => {
+  switch (type) {
     case "increment":
-      return {
-        ...state,
-        [action.payload]: (state[action.payload] || 0) + 1,
-      };
+      addToCart(state, payload);
+
+      return [...state];
     case "decrement":
-      return {
-        ...state,
-        [action.payload]:
-          (state[action.payload] || 0) > 0 ? state[action.payload] - 1 : 0,
-      };
+      removeFromCart(state, payload);
+
+      return [...state];
 
     default:
       return state;

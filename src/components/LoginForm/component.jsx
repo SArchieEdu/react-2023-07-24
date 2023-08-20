@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 import { Button } from "../Button/component";
-import { useContext } from "react";
-import { UserContext } from "../../contexts/userContext";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/features/auth/index.js";
 
 const DEFAULT_FORM_VALUE = {
   login: "",
@@ -21,8 +21,12 @@ const reducer = (state, { type, payload } = {}) => {
 };
 
 export const LoginForm = ({ onLogin }) => {
-  const { login } = useContext(UserContext);
-  const [form, dispatch] = useReducer(reducer, DEFAULT_FORM_VALUE);
+  const [form, formDispatch] = useReducer(reducer, DEFAULT_FORM_VALUE);
+  const dispatch = useDispatch();
+
+  const login = (username) => {
+    dispatch({ type: authActions.login, payload: username });
+  }
 
   return (
     <div>
@@ -31,7 +35,7 @@ export const LoginForm = ({ onLogin }) => {
         <input
           value={form.login}
           onChange={(event) =>
-            dispatch({ type: "setLogin", payload: event.target.value })
+            formDispatch({ type: "setLogin", payload: event.target.value })
           }
         />
       </div>
@@ -40,7 +44,7 @@ export const LoginForm = ({ onLogin }) => {
         <input
           value={form.password}
           onChange={(event) =>
-            dispatch({ type: "setPassword", payload: event.target.value })
+            formDispatch({ type: "setPassword", payload: event.target.value })
           }
         />
       </div>

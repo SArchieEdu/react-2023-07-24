@@ -1,13 +1,19 @@
-import { useContext } from "react";
 import { Button } from "../Button/component.jsx";
-import { UserContext } from "../../contexts/userContext.js";
 import { createPortal } from "react-dom";
 import { useState } from "react";
 import { LoginForm } from "../LoginForm/component.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/features/auth/selectors.js";
+import { authActions } from "../../store/features/auth/index.js";
 
 export const LoginButton = () => {
-  const { currentUser, logout } = useContext(UserContext);
+  const currentUser = useSelector(selectCurrentUser);
   const [isModalOpened, setIsModalOpened] = useState();
+  const dispatch = useDispatch();
+
+  const logout = () => {
+    dispatch({ type: authActions.logout })
+  }
 
   return (
     <>
