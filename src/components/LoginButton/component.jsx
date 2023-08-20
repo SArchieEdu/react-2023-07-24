@@ -1,13 +1,18 @@
-import { useContext } from "react";
-import { Button } from "../Button/component.jsx";
-import { UserContext } from "../../contexts/userContext.js";
-import { createPortal } from "react-dom";
-import { useState } from "react";
-import { LoginForm } from "../LoginForm/component.jsx";
+import {useDispatch, useSelector} from "react-redux";
+import {Button} from "../Button/component.jsx";
+import {createPortal} from "react-dom";
+import {useState} from "react";
+import {LoginForm} from "../LoginForm/component.jsx";
 
 export const LoginButton = () => {
-  const { currentUser, logout } = useContext(UserContext);
+  const {currentUser} = useSelector((store) => store.auth);
   const [isModalOpened, setIsModalOpened] = useState();
+  const dispatch = useDispatch();
+
+  const handleLogin = (login) => {
+    setIsModalOpened(false);
+    dispatch({type: "login", payload: login});
+  };
 
   return (
     <>
@@ -15,7 +20,7 @@ export const LoginButton = () => {
         {currentUser && <span>{currentUser}</span>}
         <Button
           onClick={() => {
-            currentUser ? logout() : setIsModalOpened(true);
+            currentUser ? dispatch({type: "logout"}) : setIsModalOpened(true);
           }}
         >
           {currentUser ? "Logout" : "Login"}
@@ -24,7 +29,7 @@ export const LoginButton = () => {
 
       {isModalOpened &&
         createPortal(
-          <LoginForm onLogin={() => setIsModalOpened(false)} />,
+          <LoginForm onLogin={handleLogin} />,
           document.getElementById("modal-container")
         )}
     </>

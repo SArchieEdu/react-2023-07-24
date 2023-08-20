@@ -2,17 +2,18 @@ import { Button } from "../Button/component";
 import { useDispatch, useSelector } from "react-redux";
 
 export const Dish = ({ dish }) => {
-  const count = useSelector((state) => state.cart[dish.name] || 0);
+  const count = useSelector((state) => state.cart[dish.id] || 0);
   const dispatch = useDispatch();
+  console.log(dish);
 
   const increment = () => {
-    dispatch({ type: "increment", payload: dish.name });
+    dispatch({type: "increment", payload: dish.id});
   };
   const decrement = () => {
-    dispatch({ type: "decrement", payload: dish.name });
+    dispatch({type: "decrement", payload: dish.id});
   };
 
-  const { price: dishPrice, name } = dish || {};
+  const {price, name} = dish || {};
 
   return (
     <div>
@@ -24,7 +25,7 @@ export const Dish = ({ dish }) => {
       <Button disabled={count === 5} onClick={increment}>
         +
       </Button>
-      <div>Total: ${count * dishPrice}</div>
+      <div>Total: ${count * price}</div>
     </div>
   );
 };

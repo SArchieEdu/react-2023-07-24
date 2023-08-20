@@ -1,27 +1,24 @@
-import { useReducer } from "react";
-import { Button } from "../Button/component";
-import { useContext } from "react";
-import { UserContext } from "../../contexts/userContext";
+import {useReducer} from "react";
+import {Button} from "../Button/component";
 
 const DEFAULT_FORM_VALUE = {
   login: "",
   password: "",
 };
 
-const reducer = (state, { type, payload } = {}) => {
+const reducer = (state, {type, payload} = {}) => {
   switch (type) {
     case "setLogin":
-      return { ...state, login: payload };
+      return {...state, login: payload};
     case "setPassword":
-      return { ...state, password: payload };
+      return {...state, password: payload};
 
     default:
       return state;
   }
 };
 
-export const LoginForm = ({ onLogin }) => {
-  const { login } = useContext(UserContext);
+export const LoginForm = ({onLogin}) => {
   const [form, dispatch] = useReducer(reducer, DEFAULT_FORM_VALUE);
 
   return (
@@ -31,7 +28,7 @@ export const LoginForm = ({ onLogin }) => {
         <input
           value={form.login}
           onChange={(event) =>
-            dispatch({ type: "setLogin", payload: event.target.value })
+            dispatch({type: "setLogin", payload: event.target.value})
           }
         />
       </div>
@@ -40,7 +37,7 @@ export const LoginForm = ({ onLogin }) => {
         <input
           value={form.password}
           onChange={(event) =>
-            dispatch({ type: "setPassword", payload: event.target.value })
+            dispatch({type: "setPassword", payload: event.target.value})
           }
         />
       </div>
@@ -48,8 +45,8 @@ export const LoginForm = ({ onLogin }) => {
       <Button
         disabled={!form.login || !form.password}
         onClick={() => {
-          login(form.login);
-          onLogin();
+          console.log(form.login);
+          onLogin(form.login);
         }}
       >
         Login

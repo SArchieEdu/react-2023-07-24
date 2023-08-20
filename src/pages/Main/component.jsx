@@ -4,10 +4,11 @@ import { useEffect } from "react";
 import { Button } from "../../components/Button/component";
 import { ThemeContext } from "../../contexts/themeContext";
 import { Provider } from "react-redux";
-import { store } from "../../store";
-import { Cart } from "../../components/Cart/component";
+import {store} from "../../store";
 import { UserContextProvider } from "../../components/UserContextProvider/component";
 import { RestaurantTabsContainer } from "../../components/Tabs/container";
+import {RestaurantContainer} from "../../components/Restaurant/container";
+import {RestaurantCartContainer} from "../../components/Cart/container";
 
 const LOCAL_STORAGE_KEY = "activeRestaurantIndex";
 
@@ -32,8 +33,8 @@ export const MainPage = () => {
               SwitchTheme
             </Button>
             <RestaurantTabsContainer onTabSelect={setActiveRestaurantId} />
-            {/* <RestaurantContainer restaurantId={activeRestaurantId} /> */}
-            <Cart />
+            <RestaurantContainer restaurantId={activeRestaurantId} />
+            <RestaurantCartContainer />
           </Layout>
         </ThemeContext.Provider>
       </UserContextProvider>
