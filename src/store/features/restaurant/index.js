@@ -5,11 +5,12 @@ const DEFAULT_STATE = {
   entities: {},
   ids: [],
   status: LOADING_STATUS.idle,
+  updated: true,
 };
 
 export const restaurantReducer = (
   state = DEFAULT_STATE,
-  { type, payload } = {}
+  {type, payload} = {}
 ) => {
   switch (type) {
     case RESTAURANT_ACTION.startLoading: {
@@ -25,8 +26,9 @@ export const restaurantReducer = (
 
           return acc;
         }, {}),
-        ids: payload.map(({ id }) => id),
+        ids: payload.map(({id}) => id),
         status: LOADING_STATUS.finished,
+        updated: false,
       };
     }
     case RESTAURANT_ACTION.failLoading: {

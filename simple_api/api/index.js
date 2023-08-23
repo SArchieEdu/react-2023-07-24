@@ -80,6 +80,7 @@ router.patch("/review/:reviewId", (req, res, next) => {
 });
 
 router.get("/users", (req, res, next) => {
+  console.log(req);
   reply(res, users);
 });
 

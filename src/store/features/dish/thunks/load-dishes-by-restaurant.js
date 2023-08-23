@@ -4,11 +4,15 @@ import {
   startLoadingDishes,
 } from "../action";
 
+let currentRestaurantId;
+
 export const loadDishesByRestaurantIfNotExist =
   (restaurantId) => (dispatch, getState) => {
-    // if( condition ) {
-    //   return ;
-    // }
+    const state = getState();
+    if (state.dish.ids.length > 0 && currentRestaurantId === restaurantId) {
+      return;
+    }
+    currentRestaurantId = restaurantId;
 
     dispatch(startLoadingDishes());
 

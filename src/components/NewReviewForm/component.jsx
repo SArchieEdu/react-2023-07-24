@@ -6,30 +6,34 @@ const DEFAULT_VALUE = {
   rating: 5,
 };
 
-const reducer = (state, { type, payload } = {}) => {
+const reducer = (state, {type, payload} = {}) => {
   switch (type) {
     case "setName":
-      return { ...state, name: payload };
+      return {...state, name: payload};
     case "setText":
-      return { ...state, text: payload };
+      return {...state, text: payload};
     case "setRating":
-      return { ...state, rating: payload };
+      return {...state, rating: payload};
     default:
       return state;
   }
 };
 
-export const NewReviewForm = () => {
+export const NewReviewForm = ({onSubmit}) => {
   const [form, dispatch] = useReducer(reducer, DEFAULT_VALUE);
 
+  const isAddReviewButtonDisable = Boolean(
+    !form.name || !form.text || !form.rating
+  );
+
   return (
-    <div>
+    <form onSubmit={(evt) => onSubmit(evt, form)}>
       <div>
         <label>Name</label>
         <input
           value={form.name}
           onChange={(event) =>
-            dispatch({ type: "setName", payload: event.target.value })
+            dispatch({type: "setName", payload: event.target.value})
           }
         />
       </div>
@@ -38,7 +42,7 @@ export const NewReviewForm = () => {
         <input
           value={form.text}
           onChange={(event) =>
-            dispatch({ type: "setText", payload: event.target.value })
+            dispatch({type: "setText", payload: event.target.value})
           }
         />
       </div>
@@ -47,10 +51,11 @@ export const NewReviewForm = () => {
         <input
           value={form.rating}
           onChange={(event) =>
-            dispatch({ type: "setRating", payload: event.target.value })
+            dispatch({type: "setRating", payload: event.target.value})
           }
         />
       </div>
-    </div>
+      <button disabled={isAddReviewButtonDisable}>Add New Review</button>
+    </form>
   );
 };

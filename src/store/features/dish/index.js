@@ -7,7 +7,7 @@ const DEFAULT_STATE = {
   status: LOADING_STATUS.idle,
 };
 
-export const dishReducer = (state = DEFAULT_STATE, { type, payload } = {}) => {
+export const dishReducer = (state = DEFAULT_STATE, {type, payload} = {}) => {
   switch (type) {
     case DISH_ACTION.startLoading: {
       return {
@@ -23,11 +23,9 @@ export const dishReducer = (state = DEFAULT_STATE, { type, payload } = {}) => {
 
             return acc;
           },
-          { ...state.entities }
+          {...state.entities}
         ),
-        ids: Array.from(
-          new Set([...payload.map(({ id }) => id), ...state.ids])
-        ),
+        ids: Array.from(new Set([...payload.map(({id}) => id), ...state.ids])),
         status: LOADING_STATUS.finished,
       };
     }
