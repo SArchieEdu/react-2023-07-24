@@ -4,6 +4,7 @@ import { Menu } from "./component";
 import { useEffect } from "react";
 import { loadDishesByRestaurantIfNotExist } from "../../store/features/dish/thunks/load-dishes-by-restaurant";
 import { selectIsDishesLoading } from "../../store/features/dish/selectors";
+import { Loader } from "../Loader/component.jsx";
 
 export const MenuContainer = ({ restaurantId }) => {
   const isLoading = useSelector(selectIsDishesLoading);
@@ -18,7 +19,7 @@ export const MenuContainer = ({ restaurantId }) => {
   }, [dispatch, restaurantId]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return <Menu dishIds={dishIds} />;

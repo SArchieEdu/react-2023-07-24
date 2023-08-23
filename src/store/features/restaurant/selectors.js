@@ -1,4 +1,5 @@
 import { LOADING_STATUS } from "../../../constants/loading-statuses";
+import { selectUsersLoadingStatus } from "../user/selectors.js";
 
 export const selectRestaurantModule = (state) => state.restaurant;
 
@@ -18,6 +19,9 @@ export const selectRestaurantLoadingStatus = (state) =>
 
 export const selectIsRestaurantsLoading = (state) =>
   selectRestaurantLoadingStatus(state) === LOADING_STATUS.loading;
+
+export const selectIsRestaurantsLoaded = (state) =>
+  selectUsersLoadingStatus(state) === LOADING_STATUS.finished;
 
 export const selectIsRestaurantLoadingFailed = (state) =>
   selectRestaurantLoadingStatus(state) === LOADING_STATUS.failed;
