@@ -4,7 +4,7 @@ const LOGIN = "login";
 
 const DEFAULT_STATE = {
   isLoggedIn: (() => {
-    const token = window.localStorage.getItem(TOKEN);
+    const token = localStorage.getItem(TOKEN);
     const duration = Date.now() - token;
 
     if (duration > TEN_MINUTES) {
@@ -16,8 +16,8 @@ const DEFAULT_STATE = {
 
     return Boolean(token);
   })(),
-  login: window.localStorage.getItem(LOGIN),
-  token: window.localStorage.getItem(TOKEN),
+  login: localStorage.getItem(LOGIN),
+  token: localStorage.getItem(TOKEN),
 };
 
 export const userReducer = (state = DEFAULT_STATE, action) => {
