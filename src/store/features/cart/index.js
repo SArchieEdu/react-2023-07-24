@@ -10,8 +10,7 @@ export const cartReducer = (state = DEFAULT_STATE, action) => {
     case "decrement":
       return {
         ...state,
-        [action.payload]:
-          (state[action.payload] || 0) > 0 ? state[action.payload] - 1 : 0,
+        [action.payload]: (state[action.payload] || 0) > 0 ? state[action.payload] - 1 : 0,
       };
 
     default:

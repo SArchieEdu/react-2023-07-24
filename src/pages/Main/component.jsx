@@ -5,16 +5,17 @@ import { Button } from "../../components/Button/component";
 import { ThemeContext } from "../../contexts/themeContext";
 import { Provider } from "react-redux";
 import { store } from "../../store";
-import { Cart } from "../../components/Cart/component";
+import { CardContainer } from "../../components/Cart/container";
 import { UserContextProvider } from "../../components/UserContextProvider/component";
 import { RestaurantTabsContainer } from "../../components/Tabs/container";
+import { RestaurantContainer } from "../../components/Restaurant/container";
 
 const LOCAL_STORAGE_KEY = "activeRestaurantIndex";
 
 export const MainPage = () => {
   const [theme, setTheme] = useState("light");
   const [activeRestaurantId, setActiveRestaurantId] = useState(
-    () => localStorage.getItem(LOCAL_STORAGE_KEY) || 0
+    () => localStorage.getItem(LOCAL_STORAGE_KEY) || 0,
   );
 
   useEffect(() => {
@@ -26,14 +27,12 @@ export const MainPage = () => {
       <UserContextProvider>
         <ThemeContext.Provider value={theme}>
           <Layout>
-            <Button
-              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-            >
+            <Button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
               SwitchTheme
             </Button>
             <RestaurantTabsContainer onTabSelect={setActiveRestaurantId} />
-            {/* <RestaurantContainer restaurantId={activeRestaurantId} /> */}
-            <Cart />
+            <RestaurantContainer restaurantId={activeRestaurantId} />
+            <CardContainer />
           </Layout>
         </ThemeContext.Provider>
       </UserContextProvider>

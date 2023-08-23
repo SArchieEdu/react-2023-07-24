@@ -1,14 +1,10 @@
-import { useSelector } from "react-redux";
-
-export const Cart = () => {
-  const cart = useSelector((state) => state.cart);
-
+export const Cart = ({ cart }) => {
   return (
     <div>
       <h2>Cart</h2>
       <ul>
-        {Object.entries(cart).map(([name, count]) => (
-          <li key={name}>
+        {cart.map(({ id, name, count }) => (
+          <li key={id}>
             {name}: {count}
           </li>
         ))}

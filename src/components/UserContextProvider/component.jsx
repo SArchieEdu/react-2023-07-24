@@ -1,27 +1,28 @@
 import { useMemo } from "react";
 import { UserContext } from "../../contexts/userContext";
-import { useState } from "react";
 import { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUserModule } from "../../store/features/user/selectors";
 
 export const UserContextProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const { login: userLogin } = useSelector(selectUserModule);
+  const dispatch = useDispatch();
 
-  const login = useCallback((user) => {
-    setCurrentUser(user);
-  }, []);
+  const login = useCallback(
+    (user) => {
+      dispatch({ type: "login", payload: user });
+    },
+    [dispatch],
+  );
 
   const logout = useCallback(() => {
-    setCurrentUser(null);
-  }, []);
+    dispatch({ type: "logout" });
+  }, [dispatch]);
 
   const userContextValue = useMemo(
-    () => ({ currentUser, login, logout }),
-    [currentUser, login, logout]
+    () => ({ currentUser: userLogin, login, logout }),
+    [userLogin, login, logout],
   );
 
-  return (
-    <UserContext.Provider value={userContextValue}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={userContextValue}>{children}</UserContext.Provider>;
 };

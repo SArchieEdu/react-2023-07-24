@@ -7,9 +7,9 @@ export const Restaurant = ({ restaurant }) => {
     <div>
       <h2>{restaurant.name}</h2>
       <ThemeContext.Provider value="green">
-        <Menu dishes={restaurant.menu} />
+        <Menu dishesIds={restaurant.menu} />
       </ThemeContext.Provider>
-      <Reviews reviews={restaurant.reviews} />
+      <Reviews reviewsIds={restaurant.reviews} />
     </div>
   );
 };
