@@ -1,0 +1,9 @@
+.root {
+    border: none;
+    background-color: green;
+    border-radius: 4px;
+}
+
+.decrement {
+    margin-right: 5px;
+}
