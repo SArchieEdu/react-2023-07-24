@@ -1,27 +1,24 @@
-import { AUTHORIZATION_ACTION } from "./action";
+import {createSlice, createEntityAdapter} from "@reduxjs/toolkit";
 
-const DEFAULT_STATE = {
-  currentUser: undefined,
-  startSessionTime: undefined,
-};
+const authEntityAdapter = createEntityAdapter();
 
-export const authorizationReducer = (
-  state = DEFAULT_STATE,
-  { type, payload } = {}
-) => {
-  switch (type) {
-    case AUTHORIZATION_ACTION.login:
+export const authSlice = createSlice({
+  name: "cart",
+  initialState: authEntityAdapter.getInitialState(),
+  reducers: {
+    login: (_, {payload} = {}) => {
       return {
         currentUser: payload,
         startSessionTime: Date.now(),
       };
-    case AUTHORIZATION_ACTION.logout:
+    },
+    logout: () => {
       return {
         currentUser: null,
         startSessionTime: null,
       };
+    },
+  },
+});
 
-    default:
-      return state;
-  }
-};
+export const {login, logout} = authSlice.actions;

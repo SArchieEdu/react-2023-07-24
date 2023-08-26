@@ -10,6 +10,7 @@ export const reviewSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(createReview.fulfilled, (state, { payload } = {}) => {
+        console.log(payload);
         reviewEntityAdapter.addOne(state, payload);
       })
       .addCase(

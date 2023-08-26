@@ -1,5 +1,5 @@
-import { logout } from "../features/authorization/action";
-import { selectStartSessionTime } from "../features/authorization/selectors";
+import {logout} from "../features/authorization";
+import {selectStartSessionTime} from "../features/authorization/selectors";
 // import { CART_ACTION } from "../features/cart/action";
 
 // const AUTHORIZED_ACTIONS = [CART_ACTION.increment, CART_ACTION.decrement];
