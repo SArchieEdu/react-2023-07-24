@@ -10,20 +10,5 @@ export const loadReviewsByRestaurantIfNotExist = createAsyncThunk(
     );
 
     return await response.json();
-  },
-  {
-    condition: (restaurantId, { getState }) => {
-      const state = getState();
-      const restaurantReviews = selectRestaurantReviewsById(
-        state,
-        restaurantId
-      );
-      const reviewIds = selectReviewIds(state);
-
-      return (
-        restaurantReviews &&
-        restaurantReviews.some((reviewId) => !reviewIds.includes(reviewId))
-      );
-    },
   }
 );

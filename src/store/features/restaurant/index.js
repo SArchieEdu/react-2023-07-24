@@ -1,41 +1,26 @@
-import { RESTAURANT_ACTION } from "./action";
+import {createEntityAdapter, createSlice} from "@reduxjs/toolkit";
+import {loadRestaurantsIfNotExist} from "./thunks/load-restaurants";
 
-const DEFAULT_STATE = {
-  entities: {},
-  ids: [],
-};
 
-export const restaurantReducer = (
-  state = DEFAULT_STATE,
-  { type, payload } = {}
-) => {
-  switch (type) {
-    case RESTAURANT_ACTION.finishLoading: {
-      return {
-        entities: payload.reduce((acc, restaurant) => {
-          acc[restaurant.id] = restaurant;
+const restaurantsEntityAdapter = createEntityAdapter();
 
-          return acc;
-        }, {}),
-        ids: payload.map(({ id }) => id),
-      };
-    }
-    case RESTAURANT_ACTION.addReview: {
-      return {
-        ...state,
-        entities: {
-          ...state.entities,
-          [payload.restaurantId]: {
-            ...state.entities[payload.restaurantId],
-            reviews: [
-              ...state.entities[payload.restaurantId].reviews,
-              payload.reviewId,
-            ],
-          },
-        },
-      };
-    }
-    default:
-      return state;
-  }
-};
+export const restaurantsSlice = createSlice({
+  name: "restaurants",
+  initialState: restaurantsEntityAdapter.getInitialState(),
+  reducers: {
+    addRestaurantReview: (state, {payload} = {}) => {
+    // вот тут не понял как обновить данные по отзывам,
+    // или например вызвать thunk для обновления данных по ресторанам
+    },
+  },
+  extraReducers: (builder) =>
+      builder
+          .addCase(
+              loadRestaurantsIfNotExist.fulfilled,
+              (state, { payload } = {}) => {
+                restaurantsEntityAdapter.setMany(state, payload);
+              }
+          ),
+})
+
+export const {addRestaurantReview} = restaurantsSlice.actions;
