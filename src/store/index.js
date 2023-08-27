@@ -1,7 +1,7 @@
-import { cartReducer } from "./features/cart";
-import { restaurantReducer } from "./features/restaurant";
+import {cartSlice} from "./features/cart";
+import { restaurantsSlice} from "./features/restaurant";
 import { loggerMiddleware } from "./middlewares/logger";
-import { dishReducer } from "./features/dish";
+import { dishSlice} from "./features/dish";
 import { reviewSlice } from "./features/review";
 import { userReducer } from "./features/user";
 import { authorizationReducer } from "./features/authorization";
@@ -11,9 +11,9 @@ import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
   reducer: {
-    cart: cartReducer,
-    restaurant: restaurantReducer,
-    dish: dishReducer,
+    cart: cartSlice.reducer,
+    restaurant: restaurantsSlice.reducer,
+    dish: dishSlice.reducer,
     review: reviewSlice.reducer,
     user: userReducer,
     authorization: authorizationReducer,

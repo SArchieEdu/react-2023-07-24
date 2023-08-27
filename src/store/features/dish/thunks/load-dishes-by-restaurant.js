@@ -1,28 +1,20 @@
-import { selectRestaurantMenuById } from "../../restaurant/selectors";
+import {selectRestaurantMenuById} from "../../restaurant/selectors";
 import {
   failLoadingDishes,
   finishLoadingDishes,
   startLoadingDishes,
 } from "../action";
 import { selectDishIds } from "../selectors";
+import {createAsyncThunk} from "@reduxjs/toolkit";
 
-export const loadDishesByRestaurantIfNotExist =
-  (restaurantId) => (dispatch, getState) => {
-    const state = getState();
-    const restaurantMenu = selectRestaurantMenuById(state, restaurantId);
-    const dishIds = selectDishIds(state);
 
-    if (
-      !restaurantMenu ||
-      restaurantMenu.every((dishId) => dishIds.includes(dishId))
-    ) {
-      return;
+export const loadDishByRestaurantIfNotExist = createAsyncThunk(
+    "review/loadReviewsByRestaurantIfNotExist",
+    async (restaurantId) => {
+        const response = await fetch(
+            `http://localhost:3001/api/dishes?restaurantId=${restaurantId}`
+        );
+
+        return await response.json();
     }
-
-    dispatch(startLoadingDishes());
-
-    fetch(`http://localhost:3001/api/dishes?restaurantId=${restaurantId}`)
-      .then((response) => response.json())
-      .then((restaurants) => dispatch(finishLoadingDishes(restaurants)))
-      .catch(() => dispatch(failLoadingDishes()));
-  };
+);
