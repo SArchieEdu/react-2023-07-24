@@ -1,5 +1,5 @@
 import { LOADING_STATUS } from "../../../constants/loading-statuses";
-import { USER_ACTION } from "./action";
+import { REVIEWS_ACTION } from "./action";
 
 const DEFAULT_STATE = {
   entities: {},
@@ -7,12 +7,12 @@ const DEFAULT_STATE = {
   status: LOADING_STATUS.idle,
 };
 
-export const userReducer = (state = DEFAULT_STATE, { type, payload } = {}) => {
+export const reviewsReducer = (state = DEFAULT_STATE, { type, payload } = {}) => {
   switch (type) {
-    case USER_ACTION.startLoading: {
+    case REVIEWS_ACTION.startLoading: {
       return { ...state, status: LOADING_STATUS.loading };
     }
-    case USER_ACTION.finishLoading: {
+    case REVIEWS_ACTION.finishLoading: {
       return {
         ...state,
         status: LOADING_STATUS.finished,
@@ -27,8 +27,21 @@ export const userReducer = (state = DEFAULT_STATE, { type, payload } = {}) => {
         ids: Array.from(new Set([...payload.map(({ id }) => id), ...state.ids])),
       };
     }
-    case USER_ACTION.failLoading: {
+    case REVIEWS_ACTION.failLoading: {
       return { ...state, status: LOADING_STATUS.failed };
+    }
+    case REVIEWS_ACTION.addReview: {
+      console.log({
+        ...state,
+        entities: { ...state.entities, [payload.id]: payload },
+        ids: Array.from(new Set([...state.ids, payload.id])),
+      });
+
+      return {
+        ...state,
+        entities: { ...state.entities, [payload.id]: payload },
+        ids: Array.from(new Set([...state.ids, payload.id])),
+      };
     }
     default:
       return state;

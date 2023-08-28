@@ -7,10 +7,7 @@ const DEFAULT_STATE = {
   status: LOADING_STATUS.idle,
 };
 
-export const restaurantReducer = (
-  state = DEFAULT_STATE,
-  { type, payload } = {}
-) => {
+export const restaurantReducer = (state = DEFAULT_STATE, { type, payload } = {}) => {
   switch (type) {
     case RESTAURANT_ACTION.startLoading: {
       return {

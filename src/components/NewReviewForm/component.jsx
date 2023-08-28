@@ -14,43 +14,52 @@ const reducer = (state, { type, payload } = {}) => {
       return { ...state, text: payload };
     case "setRating":
       return { ...state, rating: payload };
+    case "reset":
+      return { ...state, ...DEFAULT_VALUE };
     default:
       return state;
   }
 };
 
-export const NewReviewForm = () => {
+export const NewReviewForm = ({ onSubmit }) => {
   const [form, dispatch] = useReducer(reducer, DEFAULT_VALUE);
+  const { name, text, rating } = form;
+  const disabled = !name && !text;
+
+  const handleSubmit = () => {
+    if (onSubmit) {
+      onSubmit(form);
+    }
+
+    dispatch({ type: "reset" });
+  };
 
   return (
     <div>
       <div>
         <label>Name</label>
         <input
-          value={form.name}
-          onChange={(event) =>
-            dispatch({ type: "setName", payload: event.target.value })
-          }
+          value={name}
+          onChange={(event) => dispatch({ type: "setName", payload: event.target.value })}
         />
       </div>
       <div>
         <label>Text</label>
         <input
-          value={form.text}
-          onChange={(event) =>
-            dispatch({ type: "setText", payload: event.target.value })
-          }
+          value={text}
+          onChange={(event) => dispatch({ type: "setText", payload: event.target.value })}
         />
       </div>
       <div>
         <label>Rating</label>
         <input
-          value={form.rating}
-          onChange={(event) =>
-            dispatch({ type: "setRating", payload: event.target.value })
-          }
+          value={rating}
+          onChange={(event) => dispatch({ type: "setRating", payload: event.target.value })}
         />
       </div>
+      <button onClick={handleSubmit} disabled={disabled}>
+        add
+      </button>
     </div>
   );
 };

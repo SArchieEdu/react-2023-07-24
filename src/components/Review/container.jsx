@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectReviewById } from "../../store/features/review/selectors";
+import { selectReviewById } from "../../store/features/reviews/selectors";
 import { Review } from "./component";
 
 export const ReviewContainer = ({ reviewId }) => {

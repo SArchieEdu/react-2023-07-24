@@ -18,6 +18,7 @@ export const finishLoadingRestaurants = (restaurants) => ({
   payload: restaurants,
 });
 
-export const failLoadingRestaurants = () => ({
+export const failLoadingRestaurants = (error) => ({
   type: RESTAURANT_ACTION.failLoading,
+  payload: error,
 });
