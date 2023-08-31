@@ -5,7 +5,7 @@ import { selectRequestStatus } from "../store/features/request/selectors";
 export function useRequest(thunk, ...params) {
   const requestRef = useRef();
   const status = useSelector((state) =>
-    selectRequestStatus(state, requestRef.current?.requestId)
+    selectRequestStatus(state, requestRef.current?.requestId),
   );
 
   const dispatch = useDispatch();
@@ -14,6 +14,8 @@ export function useRequest(thunk, ...params) {
     requestRef.current = dispatch(thunk(...params));
 
     return () => {
+      console.log("return unsubscr", requestRef.current);
+
       requestRef.current.abort();
     };
   }, [dispatch, ...params, thunk]);

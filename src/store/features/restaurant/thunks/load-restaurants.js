@@ -1,20 +1,18 @@
-import { failRequest, finishRequest, startRequest } from "../../request/action";
-import { finishLoadingRestaurants } from "../action";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { selectRestaurantIds } from "../selectors";
 
-export const loadRestaurantsIfNotExist =
-  (requestId) => (dispatch, getState) => {
-    if (selectRestaurantIds(getState()).length) {
-      return;
-    }
+export const loadRestaurantsIfNotExist = createAsyncThunk(
+  "restaurants/loadRestaurantsIfNotExist",
+  async (_, thunkAPI) => {
+    const response = await fetch("http://localhost:3001/api/restaurants/", {
+      signal: thunkAPI.signal,
+    });
 
-    dispatch(startRequest(requestId));
-
-    fetch("http://localhost:3001/api/restaurants/")
-      .then((response) => response.json())
-      .then((restaurants) => {
-        dispatch(finishLoadingRestaurants(restaurants));
-        dispatch(finishRequest(requestId));
-      })
-      .catch(() => dispatch(failRequest(requestId)));
-  };
+    return await response.json();
+  },
+  {
+    condition: (_, { getState }) => {
+      return !selectRestaurantIds(getState()).length;
+    },
+  },
+);

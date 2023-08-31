@@ -9,7 +9,7 @@ import { LOADING_STATUS } from "../../constants/loading-statuses";
 
 export const ReviewsContainer = ({ restaurantId }) => {
   const reviewIds = useSelector((state) =>
-    selectRestaurantReviewsById(state, restaurantId)
+    selectRestaurantReviewsById(state, restaurantId),
   );
 
   const dispatch = useDispatch();
