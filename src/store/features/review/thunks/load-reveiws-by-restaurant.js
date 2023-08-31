@@ -4,9 +4,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const loadReviewsByRestaurantIfNotExist = createAsyncThunk(
   "review/loadReviewsByRestaurantIfNotExist",
-  async (restaurantId) => {
+  async (restaurantId, thunkAPI) => {
     const response = await fetch(
-      `http://localhost:3001/api/reviews?restaurantId=${restaurantId}`
+      `http://localhost:3001/api/reviews?restaurantId=${restaurantId}`,
+      {
+        signal: thunkAPI.signal,
+      },
     );
 
     return await response.json();
@@ -16,7 +19,7 @@ export const loadReviewsByRestaurantIfNotExist = createAsyncThunk(
       const state = getState();
       const restaurantReviews = selectRestaurantReviewsById(
         state,
-        restaurantId
+        restaurantId,
       );
       const reviewIds = selectReviewIds(state);
 
@@ -25,5 +28,5 @@ export const loadReviewsByRestaurantIfNotExist = createAsyncThunk(
         restaurantReviews.some((reviewId) => !reviewIds.includes(reviewId))
       );
     },
-  }
+  },
 );

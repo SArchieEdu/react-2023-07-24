@@ -1,9 +1,8 @@
-import { logout } from "../features/authorization/action";
+import { logout } from "../features/authorization";
 import { selectStartSessionTime } from "../features/authorization/selectors";
-// import { CART_ACTION } from "../features/cart/action";
+import { increment, decrement } from "../features/cart";
 
-// const AUTHORIZED_ACTIONS = [CART_ACTION.increment, CART_ACTION.decrement];
-const AUTHORIZED_ACTIONS = [];
+const AUTHORIZED_ACTIONS = [increment().type, decrement().type];
 const SESSION_LIFE_TIME = 10 * 60 * 1000;
 
 export const checkAuthorization =

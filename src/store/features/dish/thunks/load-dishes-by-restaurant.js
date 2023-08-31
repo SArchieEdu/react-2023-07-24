@@ -1,28 +1,29 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { selectRestaurantMenuById } from "../../restaurant/selectors";
-import {
-  failLoadingDishes,
-  finishLoadingDishes,
-  startLoadingDishes,
-} from "../action";
 import { selectDishIds } from "../selectors";
 
-export const loadDishesByRestaurantIfNotExist =
-  (restaurantId) => (dispatch, getState) => {
-    const state = getState();
-    const restaurantMenu = selectRestaurantMenuById(state, restaurantId);
-    const dishIds = selectDishIds(state);
+export const loadDishesByRestaurantIfNotExist = createAsyncThunk(
+  "dish/loadDishesByRestaurantIfNotExist",
+  async (restaurantId, thunkAPI) => {
+    const response = await fetch(
+      `http://localhost:3001/api/dishes?restaurantId=${restaurantId}`,
+      {
+        signal: thunkAPI.signal,
+      },
+    );
 
-    if (
-      !restaurantMenu ||
-      restaurantMenu.every((dishId) => dishIds.includes(dishId))
-    ) {
-      return;
-    }
+    return await response.json();
+  },
+  {
+    condition: (restaurantId, { getState }) => {
+      const state = getState();
+      const restaurantMenu = selectRestaurantMenuById(state, restaurantId);
+      const dishIds = selectDishIds(state);
 
-    dispatch(startLoadingDishes());
-
-    fetch(`http://localhost:3001/api/dishes?restaurantId=${restaurantId}`)
-      .then((response) => response.json())
-      .then((restaurants) => dispatch(finishLoadingDishes(restaurants)))
-      .catch(() => dispatch(failLoadingDishes()));
-  };
+      return !(
+        !restaurantMenu ||
+        restaurantMenu.every((dishId) => dishIds.includes(dishId))
+      );
+    },
+  },
+);

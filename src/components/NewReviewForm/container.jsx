@@ -3,7 +3,7 @@ import { createReview as createReviewThunk } from "../../store/features/review/t
 import { useMakeRequest } from "../../hooks/use-make-request";
 
 export const NewReviewFormContainer = ({ restaurantId }) => {
-  const [status, createReview] = useMakeRequest(createReviewThunk);
+  const [, createReview] = useMakeRequest(createReviewThunk);
 
   return (
     <NewReviewForm

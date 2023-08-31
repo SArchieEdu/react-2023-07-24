@@ -5,7 +5,7 @@ import { selectRequestStatus } from "../store/features/request/selectors";
 export function useMakeRequest(thunk) {
   const requestRef = useRef();
   const status = useSelector((state) =>
-    selectRequestStatus(state, requestRef.current?.requestId)
+    selectRequestStatus(state, requestRef.current?.requestId),
   );
 
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ export function useMakeRequest(thunk) {
     (...params) => {
       requestRef.current = dispatch(thunk(...params));
     },
-    [dispatch, thunk]
+    [dispatch, thunk],
   );
 
   return [status, makeRequest];
