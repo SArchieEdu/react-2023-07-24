@@ -1,11 +1,16 @@
-import { selectDishById } from "../../store/features/dish/selectors";
-import { useDispatch, useSelector } from "react-redux";
-import { Dish } from "./component";
-import { selectDishAmountById } from "../../store/features/cart/selectors";
-import { cartSlice } from "../../store/features/cart";
+import {useDispatch, useSelector} from "react-redux";
+import {Dish} from "./component";
+import {selectDishAmountById} from "../../store/features/cart/selectors";
+import {cartSlice} from "../../store/features/cart";
+import {useGetDishesQuery} from "../../store/services/api";
 
-export const DishContainer = ({ dishId }) => {
-  const dish = useSelector((state) => selectDishById(state, dishId));
+export const DishContainer = ({dishId}) => {
+  const {data: dish} = useGetDishesQuery(undefined, {
+    selectFromResult: (result) => ({
+      ...result,
+      data: result.data?.find(({id}) => id === dishId),
+    }),
+  });
   const amount = useSelector((state) => selectDishAmountById(state, dishId));
   const dispatch = useDispatch();
 

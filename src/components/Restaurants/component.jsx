@@ -9,7 +9,7 @@ export const Restaurants = () => {
     <>
       <RestaurantTabsContainer onTabSelect={setActiveRestaurantId} />
       <RestaurantContainer restaurantId={activeRestaurantId} />
-      <CartContainer />
+      <CartContainer restaurantId={activeRestaurantId} />
     </>
   );
 };

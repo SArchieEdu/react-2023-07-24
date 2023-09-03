@@ -1,8 +1,8 @@
-import { useGetReviewsQuery } from "../../store/services/api";
-import { Reviews } from "./component";
+import {useGetReviewsQuery} from "../../store/services/api";
+import {Reviews} from "./component";
 
-export const ReviewsContainer = ({ restaurantId }) => {
-  const { data: reviews, isFetching } = useGetReviewsQuery(restaurantId, {
+export const ReviewsContainer = ({restaurantId}) => {
+  const {data: reviews, isFetching} = useGetReviewsQuery(restaurantId, {
     skip: !restaurantId,
   });
 

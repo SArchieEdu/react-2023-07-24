@@ -1,16 +1,43 @@
 import { NewReviewForm } from "./component";
-import { useCreateReviewMutation } from "../../store/services/api";
+import {
+  useCreateReviewMutation,
+  useEditReviewMutation,
+  useGetUsersQuery,
+} from "../../store/services/api";
 
-export const NewReviewFormContainer = ({ restaurantId }) => {
-  const [createReview, { isLoading }] = useCreateReviewMutation();
+export const NewReviewFormContainer = ({
+  restaurantId,
+  isEdit,
+  review,
+  setIsEdit,
+}) => {
+  const [createReview, {isLoading: isSaving}] = useCreateReviewMutation();
+  const [editReview, {isLoading: isEditing}] = useEditReviewMutation();
+  const {data: user} = useGetUsersQuery(undefined, {
+    selectFromResult: (result) => ({
+      ...result,
+      data: result.data?.find(({id}) => id === review?.userId),
+    }),
+  });
 
-  if (isLoading) {
+  if (isSaving || isEditing) {
     return <span>Saving...</span>;
   }
 
+  const handleSaveReview = (newReview) => {
+    const reviewId = review.id;
+    isEdit
+      ? editReview({reviewId, newReview})
+      : createReview({restaurantId, newReview});
+  };
+
   return (
     <NewReviewForm
-      onSaveForm={(newReview) => createReview({ newReview, restaurantId })}
+      onSaveForm={handleSaveReview}
+      isEdit={isEdit}
+      review={review}
+      user={user}
+      setIsEdit={setIsEdit}
     />
   );
 };

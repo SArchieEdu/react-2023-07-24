@@ -1,14 +1,14 @@
-export const MenuContainer = ({ restaurantId }) => {
-  // const status = useRequest(loadDishesByRestaurantIfNotExist, restaurantId);
-  // const dishIds = useSelector((state) =>
-  //   selectRestaurantMenuById(state, restaurantId)
-  // );
+import {useGetDishesQuery} from "../../store/services/api";
+import {Menu} from "./component";
 
-  // if (status === LOADING_STATUS.loading) {
-  //   return <div>Loading...</div>;
-  // }
+export const MenuContainer = ({restaurantId}) => {
+  const {data: dishes, isFetching} = useGetDishesQuery(restaurantId, {
+    skip: !restaurantId,
+  });
 
-  // return <Menu dishIds={dishIds} />;
+  if (isFetching) {
+    return <span>Loading....</span>;
+  }
 
-  return null;
+  return <Menu dishes={dishes} />;
 };
