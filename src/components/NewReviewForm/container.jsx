@@ -25,9 +25,8 @@ export const NewReviewFormContainer = ({
   }
 
   const handleSaveReview = (newReview) => {
-    const reviewId = review.id;
     isEdit
-      ? editReview({reviewId, newReview})
+      ? editReview({reviewId: review?.id, newReview})
       : createReview({restaurantId, newReview});
   };
 
