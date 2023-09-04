@@ -14,6 +14,7 @@ export const Dish = ({ dish, amount, increment, decrement }) => {
         +
       </Button>
       <div>Total: ${amount * dishPrice}</div>
+      <hr />
     </div>
   );
 };

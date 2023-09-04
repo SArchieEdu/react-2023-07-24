@@ -32,6 +32,27 @@ export const api = createApi({
       }),
       invalidatesTags: () => [{ type: "Review", id: "LIST" }],
     }),
+    updateReview: builder.mutation({
+      query: ({ reviewId, review }) => ({
+        url: `123review/${reviewId}`,
+        method: "PATCH",
+        body: review,
+      }),
+      invalidatesTags: (_, error) =>
+        error ? [] : [{ type: "Review", id: "LIST" }],
+    }),
+    getDishes: builder.query({
+      query: ({ restaurantId, productId }) => ({
+        url: "dishes",
+        params: {
+          restaurantId,
+          productId,
+        },
+      }),
+    }),
+    getUsers: builder.query({
+      query: () => "/users",
+    }),
   }),
 });
 
@@ -39,4 +60,7 @@ export const {
   useGetRestaurantsQuery,
   useGetReviewsQuery,
   useCreateReviewMutation,
+  useGetDishesQuery,
+  useGetUsersQuery,
+  useUpdateReviewMutation,
 } = api;
