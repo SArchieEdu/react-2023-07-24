@@ -22,20 +22,39 @@ const reducer = (state, { type, payload } = {}) => {
   }
 };
 
-export const NewReviewForm = ({ onSaveForm }) => {
-  const [form, dispatch] = useReducer(reducer, DEFAULT_VALUE);
+export const NewReviewForm = ({
+  onSaveForm,
+  reviewInitial = DEFAULT_VALUE,
+  isEdit,
+  isLoading,
+}) => {
+  const [form, dispatch] = useReducer(reducer, reviewInitial);
+  const { name } = reviewInitial;
+
+  const handleSaveClick = () => {
+    onSaveForm({
+      ...form,
+      userId: reviewInitial?.userId,
+    });
+
+    if (!isEdit) {
+      dispatch({ type: "clearForm" });
+    }
+  };
 
   return (
     <div>
-      <div>
-        <label>Name</label>
-        <input
-          value={form.name}
-          onChange={(event) =>
-            dispatch({ type: "setName", payload: event.target.value })
-          }
-        />
-      </div>
+      {name && (
+        <div>
+          <label>Name</label>
+          <input
+            value={form.name}
+            onChange={(event) =>
+              dispatch({ type: "setName", payload: event.target.value })
+            }
+          />
+        </div>
+      )}
       <div>
         <label>Text</label>
         <input
@@ -54,15 +73,7 @@ export const NewReviewForm = ({ onSaveForm }) => {
           }
         />
       </div>
-      <Button
-        onClick={() => {
-          onSaveForm({
-            ...form,
-            userId: "dfb982e9-b432-4b7d-aec6-7f6ff2e6af54",
-          });
-          dispatch({ type: "clearForm" });
-        }}
-      >
+      <Button disabled={isLoading} onClick={handleSaveClick}>
         Save
       </Button>
     </div>
