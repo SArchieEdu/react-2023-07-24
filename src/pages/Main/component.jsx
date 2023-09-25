@@ -1,25 +1,25 @@
 import { Layout } from "../../components/Layout/component";
-import { restaurants } from "../../constants/constants";
 import { useState } from "react";
-import { Restaurant } from "../../components/Restaurant/component";
-import { Tabs } from "../../components/Tabs/component";
-import { useEffect } from "react";
-
-const LOCAL_STORAGE_KEY = "activeRestaurantIndex";
+import { Button } from "../../components/Button/component";
+import { ThemeContext } from "../../contexts/themeContext";
+import { UserContextProvider } from "../../components/UserContextProvider/component";
+import { RestaurantsContainer } from "../../components/Restaurants/container";
 
 export const MainPage = () => {
-  const [activeRestaurantIndex, setActiveRestaurantIndex] = useState(
-    () => localStorage.getItem(LOCAL_STORAGE_KEY) || 0
-  );
-
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, activeRestaurantIndex);
-  }, [activeRestaurantIndex]);
+  const [theme, setTheme] = useState("light");
 
   return (
-    <Layout>
-      <Tabs restaurants={restaurants} onTabSelect={setActiveRestaurantIndex} />
-      <Restaurant restaurant={restaurants[activeRestaurantIndex]} />
-    </Layout>
+    <UserContextProvider>
+      <ThemeContext.Provider value={theme}>
+        <Layout>
+          <Button
+            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+          >
+            SwitchTheme
+          </Button>
+          <RestaurantsContainer />
+        </Layout>
+      </ThemeContext.Provider>
+    </UserContextProvider>
   );
 };
